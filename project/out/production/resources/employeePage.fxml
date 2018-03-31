@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="addClientButton" layoutY="25.0" mnemonicParsing="false" onAction="#addClient" prefHeight="31.0" prefWidth="186.0" text="Add client" />
+      <Button fx:id="updateButton" layoutX="1.0" layoutY="92.0" mnemonicParsing="false" onAction="#updateClient" prefHeight="31.0" prefWidth="186.0" text="Update client" />
+      <Button fx:id="viewButton" layoutX="-2.0" layoutY="161.0" mnemonicParsing="false" onAction="#viewClient" prefHeight="31.0" prefWidth="186.0" text="View client" />
+      <TextField fx:id="nameText" alignment="CENTER" layoutX="217.0" layoutY="153.0" promptText="Name" />
+      <TextField fx:id="identityCardText" alignment="CENTER" layoutX="217.0" layoutY="211.0" promptText="Identity card number" />
+      <TextField fx:id="personalNumCodeText" alignment="CENTER" layoutX="217.0" layoutY="272.0" promptText="Personal numerical code" />
+      <TextField fx:id="addressText" alignment="CENTER" layoutX="217.0" layoutY="340.0" promptText="Address" />
+      <TextField fx:id="idText" alignment="CENTER" layoutX="217.0" layoutY="92.0" promptText="Id" />
+      <Button fx:id="createAccountButton" layoutX="-2.0" layoutY="226.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="31.0" prefWidth="186.0" text="Create account for client" />
+      <Button fx:id="updateAccountButton" layoutX="-2.0" layoutY="287.0" mnemonicParsing="false" onAction="#updateAccount" prefHeight="31.0" prefWidth="186.0" text="Update account" />
+      <Button fx:id="deleteAccountButton" layoutX="-3.0" layoutY="355.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="31.0" prefWidth="186.0" text="Delete account" />
+      <Button fx:id="viewAccountButton" layoutX="-1.0" layoutY="421.0" mnemonicParsing="false" onAction="#viewAccount" prefHeight="31.0" prefWidth="186.0" text="View account" />
+      <Label layoutX="244.0" layoutY="4.0" text="Client infomation" />
+      <TextField fx:id="typeText" alignment="CENTER" layoutX="476.0" layoutY="149.0" prefHeight="25.0" prefWidth="186.0" promptText="Type" />
+      <TextField fx:id="moneyText" alignment="CENTER" layoutX="476.0" layoutY="208.0" prefHeight="31.0" prefWidth="186.0" promptText="Ammount of money" />
+      <TextField fx:id="dateText" alignment="CENTER" layoutX="476.0" layoutY="272.0" prefHeight="25.0" prefWidth="186.0" promptText="Creation date" />
+      <TextField fx:id="clientIdText" alignment="CENTER" layoutX="476.0" layoutY="95.0" prefHeight="25.0" prefWidth="186.0" promptText="Id" />
+      <Label layoutX="515.0" layoutY="6.0" text="Account information" />
+      <Button fx:id="transferButton" layoutX="1.0" layoutY="477.0" mnemonicParsing="false" onAction="#transferMoney" prefHeight="31.0" prefWidth="186.0" text="Transfer money" />
+      <Button fx:id="billButton" layoutX="1.0" layoutY="538.0" mnemonicParsing="false" onAction="#processBill" prefHeight="31.0" prefWidth="186.0" text="Process bills" />
+      <TextField fx:id="sourceText" alignment="CENTER" layoutX="198.0" layoutY="477.0" prefHeight="31.0" prefWidth="153.0" promptText="Source account" />
+      <TextField fx:id="destinationText" alignment="CENTER" layoutX="599.0" layoutY="477.0" prefHeight="31.0" prefWidth="153.0" promptText="Destination account" />
+      <TextField fx:id="amountText" alignment="CENTER" layoutX="385.0" layoutY="477.0" promptText="amount" />
+      <TextField fx:id="billText" alignment="CENTER" layoutX="385.0" layoutY="541.0" promptText="Bill cost" />
+   </children>
+</Pane>

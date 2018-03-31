@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="addButton" layoutX="2.0" layoutY="95.0" mnemonicParsing="false" onAction="#addUser" prefHeight="25.0" prefWidth="101.0" text="Add user" />
+      <Button fx:id="updateButton" layoutY="175.0" mnemonicParsing="false" onAction="#updateUser" prefHeight="25.0" prefWidth="101.0" text="Update user" />
+      <Button fx:id="viewButton" layoutY="134.0" mnemonicParsing="false" onAction="#viewUser" prefHeight="25.0" prefWidth="101.0" text="View user" />
+      <Button fx:id="deleteButton" layoutY="213.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="25.0" prefWidth="101.0" text="Delete user" />
+      <Button fx:id="reportButton" layoutY="267.0" mnemonicParsing="false" onAction="#generateReport" prefHeight="25.0" prefWidth="101.0" text="Generate report" />
+      <TextField fx:id="idText" alignment="CENTER" layoutX="243.0" layoutY="59.0" promptText="Id" />
+      <TextField fx:id="userText" alignment="CENTER" layoutX="243.0" layoutY="122.0" promptText="Username" />
+      <TextField fx:id="passwordText" alignment="CENTER" layoutX="243.0" layoutY="188.0" promptText="Password" />
+      <TextField fx:id="fromText" alignment="CENTER" layoutX="134.0" layoutY="267.0" promptText="From" />
+      <TextField fx:id="toText" alignment="CENTER" layoutX="392.0" layoutY="267.0" promptText="To" />
+   </children>
+</AnchorPane>

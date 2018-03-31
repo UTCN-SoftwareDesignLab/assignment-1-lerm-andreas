@@ -1,0 +1,32 @@
+Account -> Book
+Second entity is Client
+
+
+User 
+	private Long id;
+    private String username;
+    private String password;
+    private List<Role> roles;
+	
+Roles 
+	1.FrontDeskEmployee
+	2.Administrator 
+
+Rights 
+	1.Create employee
+	2.Retrieve employee
+	3.Update employee
+	4.Delete employee
+	5.Generate reports for a particular period of time containing activities performed by an employee
+	6.Add client
+	7.Update client
+	8.View client
+	9.Create account
+	10.Update account
+	11.Delete account 
+	12.View account 
+	13.Transfer money between accounts
+	14.Process utilities bills
+
+	
+1 9 7 0 2 1 6 3 0 3 9 3 7
