@@ -89,19 +89,23 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
     }
 
     @Override
-    public Notification<Boolean> updateUser(String userName, String password, Long userId) throws EntityNotFoundException {
+    public Notification<Boolean> updateUser(String userName, String password, Long userId) {
         Role customerRole = rightsRolesRepository.findRoleByTitle(EMPLOYEE);
+        Notification<Boolean> booleanNotification = new Notification<>();
         User user = new UserBuilder()
                 .setUsername(userName)
                 .setPassword(password)
                 .setRoles((Collections.singletonList(customerRole)))
                 .build();
-
-        User sourceUser = userRepository.findUserById(userId);
+        try {
+            User sourceUser = userRepository.findUserById(userId);
+        }
+        catch (EntityNotFoundException e){
+            booleanNotification.addError("The user you are trying to update does not exist!");
+        }
 
         UserValidator userValidator = new UserValidator(user);
         boolean goodUser= userValidator.validate();
-        Notification<Boolean> booleanNotification = new Notification<>();
 
         if(!goodUser){
             booleanNotification.setResult(Boolean.FALSE);
@@ -126,6 +130,7 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 
     @Override
     public List<Action> getActionsForUser(Long id) throws EntityNotFoundException {
+
         List<Action> actions = actionRepository.findActionsForUser(id);
         return actions;
     }

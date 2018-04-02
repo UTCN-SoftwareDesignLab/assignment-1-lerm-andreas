@@ -60,6 +60,7 @@ public class AdminController {
 
     public void addUser(){
         System.out.println("add");
+
     }
 
     public void viewUser(){
@@ -96,16 +97,9 @@ public class AdminController {
         Long userId = Long.parseLong(idText.getText());
 
         Notification<Boolean> boolNotification = null;
-        try {
-            boolNotification = authenticationService.updateUser(userName, password,userId);
-        }
-        catch (EntityNotFoundException e){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alert!");
-            alert.setHeaderText(null);
-            alert.setContentText("The user your are trying to update does not exist");
-            alert.showAndWait();
-        }
+
+        boolNotification = authenticationService.updateUser(userName, password,userId);
+
         if(boolNotification.hasErrors()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Alert!!!!!");

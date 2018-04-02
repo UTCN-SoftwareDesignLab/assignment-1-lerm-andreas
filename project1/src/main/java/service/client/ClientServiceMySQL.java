@@ -39,20 +39,25 @@ public class ClientServiceMySQL implements ClientService {
     }
 
     @Override
-    public Notification<Boolean> updateClient(String name, Long identityCardNumber, Long personalNumericalCode, String address, Long id) throws EntityNotFoundException {
+    public Notification<Boolean> updateClient(String name, Long identityCardNumber, Long personalNumericalCode, String address, Long id) {
+        Notification<Boolean> booleanNotification = new Notification<>();
         Client client = new ClientBuilder()
                 .setName(name)
                 .setIdentityCardNumber(identityCardNumber)
                 .setPersonalNumericalCode(personalNumericalCode)
                 .setAddress(address)
                 .build();
-
-        Client sourceClient = clientRepository.findClientById(id);
+        try {
+            Client sourceClient = clientRepository.findClientById(id);
+        }
+        catch(EntityNotFoundException e){
+            booleanNotification.addError("The client you are trying to update does not exist!");
+        }
         ClientValidator clientValidator = new ClientValidator(client);
 
         boolean goodClient = clientValidator.validate();
 
-        Notification<Boolean> booleanNotification = new Notification<>();
+
         if(!goodClient){
             clientValidator.getErrors().forEach(booleanNotification::addError);
             booleanNotification.setResult(Boolean.FALSE);
@@ -67,10 +72,10 @@ public class ClientServiceMySQL implements ClientService {
 
 
     @Override
-    public Notification<Client> viewClient(Long id) throws EntityNotFoundException {
+    public Notification<Client> viewClient(Long id) throws EntityNotFoundException{
         Notification<Client> clientViewNotification = new Notification<>();
 
-        clientViewNotification.setResult(clientRepository.findClientById(id));
+            clientViewNotification.setResult(clientRepository.findClientById(id));
 
         return clientViewNotification;
     }

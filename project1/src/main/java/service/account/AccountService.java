@@ -10,17 +10,14 @@ public interface AccountService {
 
     Notification<Boolean> addAccountToClient(String type, Long ammountOfMoney, Date creationDate, Long clientId);
 
-    public Notification<Boolean> updateAccount(String type, Long amountOfMoney, Date creationDate, Long accountId) throws EntityNotFoundException;
+    public Notification<Boolean> updateAccount(String type, Long amountOfMoney, Date creationDate, Long accountId);
 
     Notification<Account> viewAccount(Long id) throws EntityNotFoundException;
 
     void deleteAccount(Long id) throws EntityNotFoundException;
 
-  //  Notification<Boolean> deleteAccount(Long id) throws EntityNotFoundException;
+    Notification<Boolean> transferMoney(Long sourceId,Long destinationId, Long amount);
 
-    Notification<Boolean> transferMoney(Long sourceId,Long destinationId, Long amount) throws EntityNotFoundException;
-
-    Notification<Boolean> processBill(Long cost, Long clientId, Long accountId) throws EntityNotFoundException;
-
+    Notification<Boolean> processBill(Long cost, Long clientId, Long accountId);
 
 }

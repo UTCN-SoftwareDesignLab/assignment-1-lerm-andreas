@@ -52,6 +52,7 @@ public class ActionRepositoryMySQL implements ActionRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return actions;
     }
 

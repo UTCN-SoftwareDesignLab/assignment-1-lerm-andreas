@@ -25,7 +25,8 @@ public class AccountServiceMySQL implements AccountService {
 
     @Override
     public Notification<Boolean> addAccountToClient(String type, Long ammountOfMoney, Date creationDate,Long clientId){
-
+        Notification<Boolean> addAccountNotification = new Notification<>();
+        Client client = new Client();
         Account account = new AccountBuilder()
                 .setType(type)
                 .setAmountOfMoney(ammountOfMoney)
@@ -33,9 +34,13 @@ public class AccountServiceMySQL implements AccountService {
                 .build();
 
         AccountValidator accountValidator = new AccountValidator(account,0l);
-
+        try {
+            client = clientRepository.findClientById(clientId);
+        }
+        catch (EntityNotFoundException e){
+            addAccountNotification.addError("The client does not exist!");
+        }
         boolean accountValid = accountValidator.validate();
-        Notification<Boolean> addAccountNotification = new Notification<>();
 
         if(!accountValid){
             accountValidator.getErrors().forEach(addAccountNotification::addError);
@@ -59,15 +64,30 @@ public class AccountServiceMySQL implements AccountService {
     }
 
     @Override
-    public Notification<Boolean> transferMoney(Long sourceId,Long destinationId, Long amount) throws EntityNotFoundException {
-        Account sourceAccount = accountRepository.findAccountById(sourceId);
-        Account destinationAccount = accountRepository.findAccountById(destinationId);
+    public Notification<Boolean> transferMoney(Long sourceId,Long destinationId, Long amount) {
+        Notification<Boolean> booleanNotification = new Notification<>();
+        boolean test = false;
+        Account sourceAccount = new Account();
+        Account destinationAccount = new Account();
+        try {
+            sourceAccount = accountRepository.findAccountById(sourceId);
 
-     //   boolean enoughMoney = sourceAccount.getAmountOfMoney() > amount;
+        }
+        catch (EntityNotFoundException e){
+            booleanNotification.addError("Source account does not exist!");
+            test = true;
+        }
+        try {
+             destinationAccount = accountRepository.findAccountById(destinationId);
+        }
+        catch (EntityNotFoundException e){
+            booleanNotification.addError("Destination account does not exist!");
+            test = true;
+        }
+
+        if(test == false){
         AccountValidator accountValidator = new AccountValidator(sourceAccount,amount);
         boolean enoughMoney = accountValidator.validate();
-        Notification<Boolean> booleanNotification = new Notification<>();
-
         if(!enoughMoney){
            booleanNotification.setResult(Boolean.FALSE);
             accountValidator.getErrors().forEach(booleanNotification::addError);
@@ -86,18 +106,38 @@ public class AccountServiceMySQL implements AccountService {
             accountRepository.updateAccount(newSourceAccount,sourceId);
             accountRepository.updateAccount(newDestinationAccount,destinationId);
             booleanNotification.setResult(Boolean.TRUE);
-        }
+        }}
+
         return booleanNotification;
     }
 
     @Override
-    public Notification<Boolean> processBill(Long cost, Long clientId, Long accountId) throws EntityNotFoundException {
-        Client client = clientRepository.findClientById(clientId);
-        Account sourceAccount = accountRepository.findAccountById(accountId);
-
-        AccountValidator accountValidator = new AccountValidator(sourceAccount,cost);
-        boolean enoughMoney = accountValidator.validate();
+    public Notification<Boolean> processBill(Long cost, Long clientId, Long accountId){
         Notification<Boolean> booleanNotification = new Notification<>();
+        Account sourceAccount = new Account();
+
+        boolean enoughMoney = false;
+        boolean test = false;
+        Date date = new Date();
+
+        try {
+            Client client = clientRepository.findClientById(clientId);
+        }
+        catch (EntityNotFoundException e){
+            booleanNotification.addError("The client does not exist!");
+            test = true;
+        }
+        try {
+             sourceAccount = accountRepository.findAccountById(accountId);
+        }
+        catch (EntityNotFoundException e){
+            booleanNotification.addError("The acount does not exist!");
+            test = true;
+        }
+
+        if(test == false){
+        AccountValidator accountValidator = new AccountValidator(sourceAccount,cost);
+        enoughMoney = accountValidator.validate();
 
         if(!enoughMoney){
             booleanNotification.setResult(Boolean.FALSE);
@@ -107,26 +147,33 @@ public class AccountServiceMySQL implements AccountService {
             Account newSourceAccount = new AccountBuilder()
                     .setType(sourceAccount.getType())
                     .setAmountOfMoney(sourceAccount.getAmountOfMoney() - cost)
-                    .setDateOfCreation(new java.sql.Date(sourceAccount.getDateOfCreation().getTime()))
+                    .setDateOfCreation(new java.sql.Date(date.getTime()))
                     .build();
             accountRepository.updateAccount(newSourceAccount,sourceAccount.getId());
             booleanNotification.setResult(Boolean.TRUE);
-        }
+        }}
         return booleanNotification;
     }
 
     @Override
-    public Notification<Boolean> updateAccount(String type, Long amountOfMoney, Date creationDate, Long accountId) throws EntityNotFoundException {
-        Account sourceAccount = accountRepository.findAccountById(accountId);
+    public Notification<Boolean> updateAccount(String type, Long amountOfMoney, Date creationDate, Long accountId){
+        Notification<Boolean> booleanNotification = new Notification<>();
+        Account sourceAccount= new Account();
+        try {
+            sourceAccount = accountRepository.findAccountById(accountId);
+        }
+        catch(EntityNotFoundException e){
+            booleanNotification.addError("The account you want to update does not exist!");
+        }
+        Date date = new Date();
         Account account = new AccountBuilder()
                 .setType(type)
                 .setAmountOfMoney(amountOfMoney)
-                .setDateOfCreation( new java.sql.Date(sourceAccount.getDateOfCreation().getTime()))
+                .setDateOfCreation( new java.sql.Date(date.getTime()))
                 .build();
 
         AccountValidator accountValidator = new AccountValidator(account,0l);
         boolean goodAccount = accountValidator.validate();
-        Notification<Boolean> booleanNotification = new Notification<>();
 
         if(!goodAccount){
             booleanNotification.setResult(Boolean.FALSE);

@@ -18,7 +18,7 @@ public interface AuthenticationService {
     Notification<User> login(String username, String password) throws AuthenticationException;
     public Notification<User> viewUser(Long id) throws EntityNotFoundException;
     boolean logout(User user);
-    public Notification<Boolean> updateUser(String userName, String password, Long userId) throws EntityNotFoundException;
+   Notification<Boolean> updateUser(String userName, String password, Long userId);
     public void deleteUser(Long id) throws EntityNotFoundException;
     public Notification<User> viewUserByUserNameAndPassword(String username, String password) throws EntityNotFoundException, AuthenticationException;
     public void saveAction(String description, Long userId);

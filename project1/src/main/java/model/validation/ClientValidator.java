@@ -28,18 +28,16 @@ public class ClientValidator {
         return errors.isEmpty();
     }
 
-    //IdentityCardNumber must have only digits
-
     private void validateIdentityCardNumber(Long identityCardNumber){
         int length = String.valueOf(identityCardNumber).length();
         if(length!=5)
-            errors.add("The identity card number must be of exactly 13 characters!");
+            errors.add("The identity card number must be of exactly 5 characters!");
     }
 
     private void validatePersonalNumericalCode(Long personalNumericalCode){
         int length = String.valueOf(personalNumericalCode).length();
         if(length!=5)
-            errors.add("The personal numerical code must be of exactly 13 characters!");
+            errors.add("The personal numerical code must be of exactly 5 characters!");
     }
 
 }

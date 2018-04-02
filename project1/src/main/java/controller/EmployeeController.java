@@ -131,7 +131,7 @@ public class EmployeeController {
         Long id  = Long.parseLong(idText.getText());
 
         Notification<Client> viewNotification = null;
-        try{
+        try {
             viewNotification = clientService.viewClient(id);
         }
         catch (EntityNotFoundException e){
@@ -141,7 +141,6 @@ public class EmployeeController {
             alert.setContentText("The client you are trying to view does not exist");
             alert.showAndWait();
         }
-
         if(viewNotification !=null)
         {   authenticationService.saveAction("viewClient",1l);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -158,7 +157,8 @@ public class EmployeeController {
        Long amountOfMoney = Long.parseLong(moneyText.getText());
        Date date = new Date();
        Long clientId = Long.parseLong(idText.getText());
-        Notification<Boolean> addAccountNotification = accountService.addAccountToClient(type,amountOfMoney,date,clientId);
+        Notification<Boolean> addAccountNotification;
+     addAccountNotification = accountService.addAccountToClient(type, amountOfMoney, date, clientId);
         if(addAccountNotification.hasErrors()){
             System.out.println("Errors encountered while adding account");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -208,15 +208,9 @@ public class EmployeeController {
         Long destionationId = Long.parseLong(destinationText.getText());
         Long amount = Long.parseLong(amountText.getText());
         Notification<Boolean> booleanNotification = null;
-        try{
-            booleanNotification = accountService.transferMoney(sourceId,destionationId,amount);
-        }catch (EntityNotFoundException e){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alert!");
-            alert.setHeaderText(null);
-            alert.setContentText("At least one of the account does not exist");
-            alert.showAndWait();
-        }
+
+        booleanNotification = accountService.transferMoney(sourceId,destionationId,amount);
+
         if(booleanNotification.hasErrors())
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -235,39 +229,34 @@ public class EmployeeController {
         }
     }
 
-    public void processBill(){
-        Long cost = Long.parseLong(billText.getText());
+
+        public void processBill() {
+
+        Long  cost = Long.parseLong(billText.getText());
+
         Long clientId = Long.parseLong(idText.getText());
         Long accountId = Long.parseLong(clientIdText.getText());
 
         Notification<Boolean> booleanNotification = null;
-        try{
-            booleanNotification = accountService.processBill(cost,clientId,accountId);
-        }
-        catch (EntityNotFoundException e){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alert!");
-            alert.setHeaderText(null);
-            alert.setContentText("The account/client does not exist");
-            alert.showAndWait();
-        }
-        if(booleanNotification.hasErrors())
-        {
+
+        booleanNotification = accountService.processBill(cost, clientId, accountId);
+
+        if (booleanNotification.hasErrors()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Alert!!");
             alert.setHeaderText(null);
             alert.setContentText(booleanNotification.getFormattedErrors());
             alert.showAndWait();
+        } else {
+            authenticationService.saveAction("processBill", 1l);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alert!");
+            alert.setHeaderText(null);
+            alert.setContentText("The bill was successfully payed!");
+            alert.showAndWait();
         }
-        else{
-                 authenticationService.saveAction("processBill",1l);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Alert!");
-                alert.setHeaderText(null);
-                alert.setContentText("The bill was successfully payed!");
-                alert.showAndWait();
-            }
-        }
+    }
+
 
     public void updateAccount(){
         System.out.print("update");
@@ -276,16 +265,9 @@ public class EmployeeController {
         Date date = new Date();
         Long clientId = Long.parseLong(clientIdText.getText());
         Notification<Boolean> booleanNotification = null;
-        try {
-           booleanNotification = accountService.updateAccount(type, amountOfMoney, date, clientId);
-        }
-        catch (EntityNotFoundException e){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alert!");
-            alert.setHeaderText(null);
-            alert.setContentText("The account your are trying to update does not exist");
-            alert.showAndWait();
-        }
+
+        booleanNotification = accountService.updateAccount(type, amountOfMoney, date, clientId);
+
         if(booleanNotification.hasErrors()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Alert!!!");
@@ -309,16 +291,9 @@ public class EmployeeController {
         String address = addressText.getText();
         Long id  = Long.parseLong(idText.getText());
         Notification<Boolean> booleanNotification = null;
-        try {
-            booleanNotification = clientService.updateClient(name,identityCardNumber,personalNumericalCode,address,id);
-        }
-        catch (EntityNotFoundException e){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alert!");
-            alert.setHeaderText(null);
-            alert.setContentText("The client your are trying to update does not exist");
-            alert.showAndWait();
-        }
+
+        booleanNotification = clientService.updateClient(name,identityCardNumber,personalNumericalCode,address,id);
+
         if(booleanNotification.hasErrors()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Alert!!!!");

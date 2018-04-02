@@ -50,24 +50,9 @@ public class AccountServiceMySQLTest {
                 .setDateOfCreation(new java.sql.Date(date1.getTime()))
                 .build();
         Long id = 1l;
+
         accountRepository.addAccountToClient(account,id);
 
-    }
-    @Test
-    public void addAccountToClient() {
-        Long id = accountRepository.findAll().get(accountRepository.findAll().size()-1).getId()+1;
-        Date date = new Date();
-        Assert.assertTrue(accountService.addAccountToClient(ACCOUNT_TYPE,AMOUNT_OF_MONEY,date,id).getResult());
-    }
-
-    @Test
-    public void viewAccount() {
-        Long id = accountRepository.findAll().get(accountRepository.findAll().size()-1).getId()+1;
-        Date date = new Date();
-        accountService.addAccountToClient(ACCOUNT_TYPE,AMOUNT_OF_MONEY,date,id);
-        List<Account> accounts = accountRepository.findAll();
-        Account account = accounts.get(accountRepository.findAll().size()-1);
-        assertEquals(account.getAmountOfMoney(),AMOUNT_OF_MONEY);
     }
 
     @Test
@@ -75,18 +60,6 @@ public class AccountServiceMySQLTest {
         Long destinationId = accountRepository.findAll().get(accountRepository.findAll().size()-1).getId();
         Long sourceId = accountRepository.findAll().get(0).getId();
         Assert.assertTrue(accountService.transferMoney(sourceId,destinationId,TRANSACTION_COST).getResult());
-    }
-
-
-    @Test
-    public void updateAccount() throws EntityNotFoundException {
-        Long id = accountRepository.findAll().get(accountRepository.findAll().size()-1).getId()+1;
-        Date date = new Date();
-        accountService.addAccountToClient(ACCOUNT_TYPE,AMOUNT_OF_MONEY,date,id);
-        List<Account> accounts = accountRepository.findAll();
-        Account account = accounts.get(accountRepository.findAll().size()-1);
-        Long accountId = account.getId();
-        Assert.assertTrue(accountService.updateAccount(ACCOUNT_TYPE,AMOUNT_OF_MONEY,date,accountId).getResult());
     }
 
 }

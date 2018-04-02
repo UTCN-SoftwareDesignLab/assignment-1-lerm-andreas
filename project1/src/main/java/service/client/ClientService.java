@@ -8,7 +8,7 @@ public interface ClientService {
 
     Notification<Boolean> addClient(String name, Long identityCardNumber, Long personalNumericalCode, String address);
 
-    Notification<Boolean> updateClient(String name, Long identityCardNumber, Long personalNumericalCode, String address, Long id) throws EntityNotFoundException;
+    Notification<Boolean> updateClient(String name, Long identityCardNumber, Long personalNumericalCode, String address, Long id);
 
     Notification<Client> viewClient(Long id) throws EntityNotFoundException;
 
